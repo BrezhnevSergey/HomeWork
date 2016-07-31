@@ -1,5 +1,3 @@
-// Code goes here
-
 /*function getFileExtension(fileName){
   for (var i=fileName.length-1; i>=1; i--){
     if(fileName[i]=="."){
@@ -10,7 +8,7 @@
 }*/
 
 //или
-
+/*
 
 function getFileExtension(fileName){
   var index = fileName.lastIndexOf(".")
@@ -22,3 +20,4 @@ function getFileExtension(fileName){
 }
 
 console.log(getFileExtension("readsdfgdsghf345345d.psd"));
+*/
