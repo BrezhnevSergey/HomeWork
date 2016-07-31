@@ -1,5 +1,30 @@
 // Code goes here
 
+//my 
+
+/*var arr = [3, 6, 24, 17, 77, 88, 12, 44, 23, 11];
+console.log("Unsort " + arr);
+console.log(arr.sort(function (a,b){
+  if (a % 2 == b % 2) {
+    return 0;
+  } else {
+    if (!(a % 2) && (b %  2)) {
+      return -1;     
+    } else {
+      return 1;
+    }
+  }
+}));*/
+
+
+//teacher 
+var arr = [3, 6, 24, 17, 77, 88, 12, 44, 23, 11];
+console.log("Unsort " + arr);
+console.log(arr.sort(function (a,b){
+  return Math.abs(a % 2) - Math.abs(b % 2);
+}));
+
+
 /*function getFileExtension(fileName){
   for (var i=fileName.length-1; i>=1; i--){
     if(fileName[i]=="."){
@@ -11,7 +36,7 @@
 
 //или
 
-
+/*
 function getFileExtension(fileName){
   var index = fileName.lastIndexOf(".")
    if (index <= 0) {
@@ -22,3 +47,4 @@ function getFileExtension(fileName){
 }
 
 console.log(getFileExtension("readsdfgdsghf345345d.psd"));
+*/
