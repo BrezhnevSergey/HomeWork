@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-=======
-// Code goes here
+﻿// Code goes here
 
 //my 
 
@@ -38,7 +36,6 @@ console.log(arr.sort(function (a,b){
 }*/
 
 //или
-<<<<<<< HEAD
 /*
 
 =======
