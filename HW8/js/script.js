@@ -11,7 +11,6 @@ function run() {
       // создать регулярку с помощью Constructor
       var regexp = Constructor.generateRegExp(str);
       // если регулярка создана - передать ее в Parser.factory,
-      var parser = new Parser();
       var element = Parser.factory(regexp);
       // который в свою очередь вернет новый объект
       // новый объект надо запушить в массив objects
@@ -23,13 +22,11 @@ function run() {
         objects.forEach(function(item){
           var randMethod = getRandomMethod(item);
           console.log(item[randMethod]());
-
         });
+        console.log(objects);
       }
-
-    } else {
-      alert("It is not a RegExp.");
-      return func();
+    } else if (str == null ) {
+      return confirm("Do you finish?") ? true : func();
     }
   }
   return func;
@@ -47,9 +44,9 @@ Parser.factory = function(re) {
   // нужно создать соответствующий SingleWordParser или
   // MultiWordParser
   var resultArray = Validator.checkText(re);
-  if (resultArray == null) return {};
-  if (resultArray.length > 1)
+  if (resultArray.length > 1) {
     var resObj = new MultiWordParser(resultArray);
+  }
   else {
     var resObj = new SingleWordParser(resultArray);
   }
@@ -73,6 +70,8 @@ function SingleWordParser(word) {
   }
 }
 
+SingleWordParser.prototype = Parser;
+
 function MultiWordParser(words) {
   this.type = "Multi Word Parser"
   this.words = words
@@ -89,12 +88,14 @@ function MultiWordParser(words) {
       }
     });
 
-    //return nWords;
-    return 
+    return nWords;
 
   }
   
 }
+
+MultiWordParser.prototype = Parser;
+
 //--------------------------------------------
 // это функция, содержащая набор статических методов для валидации
 function Validator() {}
@@ -109,7 +110,8 @@ Validator.checkRegExp = function(string) {
 // ищем в тексте (var text в верху страницы) совпадающие фрагменты с помощью 
 // регулярки и возвращаем эти фрагменты
 Validator.checkText = function(re) {
-  return text.match(re);
+  var result = text.match(re);
+  return result ? result : ["not found"];
 }
 
 //------------------------------------
