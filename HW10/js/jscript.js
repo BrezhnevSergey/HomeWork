@@ -1,7 +1,6 @@
 
 
 
-
 function invertDocument(element) {
 	var array = [];	
 	var string = "";
@@ -27,14 +26,14 @@ function invertDocument(element) {
 	}
 
 	function writeHTML(){
+		readParent(element);
 		array.forEach(function (item) {
 			string += "\<" + item + "\>";
 		});
-		for (var i = array.length - 1 ; i >= 0; i--)
+		for (var i = array.length - 1; i >= 0; i--)
 			string += "\<\/" + array[i] + "\>";
 	}
 
-	readParent(element);
 	writeHTML();
 	document.body.innerHTML = string;
 }
