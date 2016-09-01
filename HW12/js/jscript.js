@@ -1,21 +1,11 @@
 
 window.onload = function() {
-	var form = document.getElementById("form");
-	var login = document.getElementById("login");
-	var email = document.getElementById("email");
-	var psw = document.getElementById("psw");
-	var sub = document.getElementById("send");
-	var inputs = document.getElementById("form").querySelectorAll("input");
-	//console.log(inputs);
-/*	login.addEventListener("blur", checkLogin);
-	email.addEventListener("blur", checkMail);
-	psw.addEventListener("blur", checkPsw);
+	var formOb = document.getElementById("form");
+	var loginOb = document.getElementById("login");
+	var emailOb = document.getElementById("email");
+	var pswOb = document.getElementById("psw");
+	var submitOb = document.getElementById("send");
 
-	function checkLogin(e) {
-		console.log(this.value);
-		console.log(this.type)
-	}*/
-	//input.addEventListener("blur", handler);
 	form.addEventListener("blur", handler, true);
 	form.addEventListener("submit", checkInputFields);
 
@@ -26,20 +16,30 @@ window.onload = function() {
 		var pswRegExp = /(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 		
 		if(target.id == "login") {
-			var log = login.value;
-			var res = loginRegExp.test(log);
-			if(log == "" || !res) {
-				login.classList.add("error");
+			var login = loginOb.value;
+			if( login == "" || !(loginRegExp.test(login)) ) {
+				loginOb.classList.add("error");
 			} else {
-				login.classList.remove("error");
+				loginOb.classList.remove("error");
 			}
 		}
-		if(target.id == "email") {
 
-			console.log(target.value);
+		if(target.id == "email") {
+			var email = emailOb.value;
+			if( email == "" || !(emailRegExp.test(email)) ) {
+				emailOb.classList.add("error");
+			} else {
+				emailOb.classList.remove("error");
+			}
 		}
+
 		if(target.id == "psw") {
-			console.log(target.value);
+			var psw = pswOb.value;
+			if ( psw == "" || !(pswRegExp.test(psw)) ) {
+				pswOb.classList.add("error");
+			} else {
+				pswOb.classList.remove("error");
+			}
 		}
 
 	}
@@ -47,15 +47,15 @@ window.onload = function() {
 	function checkInputFields(e) {
 		if(login.value == "") {
 			login.classList.add("error");
-			e.preventDefault()
+			e.preventDefault();
 		}
 		if (email.value == "") {
 			email.classList.add("error");
-			e.preventDefault()
+			e.preventDefault();
 		}
 		if (psw.value == "") {
 			psw.classList.add("error");
-			e.preventDefault()
+			e.preventDefault();
 		}
 	return true;
 	}
@@ -63,17 +63,3 @@ window.onload = function() {
 }
 	
 
-
-
-  /*document.body.onclick = function(e) {
-    var target = e.target;
-    while (target != this) {
-      if (target.tagName.toLowerCase() == "h2") {
-        console.log(target.tagName)
-      }
-      target = target.parentNode;
-    }*/
-    /*if (e.target.tagName == "H2") {
-      console.log(e.target.textContent)
-    }*/
-  //}*/
