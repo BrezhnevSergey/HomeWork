@@ -62,3 +62,18 @@ body {
   margin: 0 auto;
 }
 /*-----START nav styles-----*/
+#fly1, #fly2 {
+  position: absolute;
+}
+#fly1 {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10px;
+}
+#fly2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: green;
+}
