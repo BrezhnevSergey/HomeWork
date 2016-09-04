@@ -1,6 +1,7 @@
 // Code goes here
 
 
+
 window.onload = function() {
 	var formOb = document.getElementById("form");
 	var loginOb = document.getElementById("login");
@@ -76,5 +77,3 @@ window.onload = function() {
 	}
 
 }
-	
-
