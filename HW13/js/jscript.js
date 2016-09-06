@@ -7,16 +7,19 @@ $(function() {
 
     var cubes = []
     var currentCube = null;
+    
+    var xColl = false;
+    var yColl = false;
 
     canvas.on("mousedown", function(e) {
         isDrag = true;
-        checkClick(e.offsetX, e.offsetY)
+        checkClick(e.offsetX, e.offsetY);
     })
   
     canvas.on("mousemove", function(e) {
         if (isDrag) {
-            changeCoords(currentCube, e.offsetX, e.offsetY)
-            draw()
+            changeCoords(currentCube, e.offsetX, e.offsetY);
+            draw();
         }
     })
 
@@ -37,8 +40,14 @@ $(function() {
     }
 
     function changeCoords(obj, x, y) {
+        if ( ((x + cube.width) >= cube1.x) && (x = (cube1.x + cube1.width)) ) xColl = true;
+        if ( ((y + cube.height) >= cube1.y) && (y <= (cube1.y + cube1.height)) ) yColl = true;
+        
+        if (xColl&&yColl){console.log("Crash!!!!");}
+            
         obj.x = x;
         obj.y = y;
+        
     }
       
     function Entity(color, x, y, width, height) {
@@ -54,18 +63,18 @@ $(function() {
       }
       
     function draw() {
-        map.draw()
-        cube.draw()
-        cube1.draw()
+        map.draw();
+        cube.draw();
+        cube1.draw();
     }
       
-    var map = new Entity("white", 0, 0, canvas.width(), canvas.height())
-    var cube = new Entity("red", 15, 15, 30, 30)
-    var cube1 = new Entity("blue", 50, 50, 30, 30)
+    var map = new Entity("white", 0, 0, canvas.width(), canvas.height());
+    var cube = new Entity("red", 15, 15, 30, 30);
+    var cube1 = new Entity("blue", 50, 50, 30, 30);
 
-    cubes.push(cube)
-    cubes.push(cube1)
+    cubes.push(cube);
+    cubes.push(cube1);
     
-    cube.draw(15, 15)
-    cube1.draw(50, 50)
-})
+    cube.draw(15, 15);
+    cube1.draw(50, 50);
+});

@@ -56,11 +56,14 @@ body {
  
 }
 .wrapper {
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 320px;
+  max-width: 1024px;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
   font: 16px/22px verdana, helvetica, sans-serif;
 }
 /*-----START nav styles-----*/
+canvas {
+  border: 1px dotted red;
+}
