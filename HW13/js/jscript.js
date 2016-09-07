@@ -6,7 +6,8 @@ $(function() {
     var isDrag = false;
 
     var cubes = []
-    var currentCube = null;
+    var currentCube = {};
+
     
     var xColl = false;
     var yColl = false;
@@ -25,28 +26,29 @@ $(function() {
 
     canvas.on("mouseup", function(e) {
         isDrag = false;
-        currentCube = null;
+        currentCube = {};
     })
 
     function checkClick(x, y) {
         for(index in cubes) {
             if(x >= cubes[index].x && x <= cubes[index].x + cubes[index].width) {
                 if (y >= cubes[index].y && y <= cubes[index].y + cubes[index].height) {
-                    //console.log(cubes[index].color)
                     currentCube = cubes[index];
+                    currentCube.shiftX = x - cubes[index].x;
+                    currentCube.shiftY = y - cubes[index].y;
                 }
             }
         }
     }
 
     function changeCoords(obj, x, y) {
-        if ( ((x + cube.width) >= cube1.x) && (x = (cube1.x + cube1.width)) ) xColl = true;
-        if ( ((y + cube.height) >= cube1.y) && (y <= (cube1.y + cube1.height)) ) yColl = true;
-        
-        if (xColl&&yColl){console.log("Crash!!!!");}
-            
-        obj.x = x;
-        obj.y = y;
+        if(isDrag) {
+            if ( (x - obj.shiftX >= 0) && (y - obj.shiftY >= 0) && 
+                ((x + (obj.width - obj.shiftX)) <= map.width) && ((y + (obj.height - obj.shiftY)) <= map.height) ) {
+                obj.x = x - obj.shiftX;
+                obj.y = y - obj.shiftY;
+            }
+        }
         
     }
       
