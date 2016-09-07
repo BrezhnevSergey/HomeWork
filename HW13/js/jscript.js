@@ -40,8 +40,8 @@ $(function() {
     }
 
     function changeCoords(obj, x, y) {
-        if ( ((x + cube.width) >= cube1.x) && (x = (cube1.x + cube1.width)) ) xColl = true;
-        if ( ((y + cube.height) >= cube1.y) && (y <= (cube1.y + cube1.height)) ) yColl = true;
+        if ( ((x + cube.width) >= cube1.x) && (x <= (cube1.x + cube1.width)) ) { xColl = true; console.log("xCollision"); }
+        if ( ((y + cube.height) >= cube1.y) && (y <= (cube1.y + cube1.height)) ) { yColl = true; console.log("yCollision"); }
         
         if (xColl&&yColl){console.log("Crash!!!!");}
             
