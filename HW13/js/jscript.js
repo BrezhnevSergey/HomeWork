@@ -46,66 +46,85 @@ $(function() {
                 obj.y = y - obj.shiftY;
 
                 if (collision(obj)) {
-                    //console.log("COLISION" + obj.colCube);
-                    if (obj.collLeft || obj.collRight) {
-                        if (obj.collLeft) {
-                            console.log("obj.collLeft = " + obj.collLeft);
-                            var xMoveL = x - (cubes[obj.collCube].width + obj.shiftX);
-                            if (xMoveL >= 0) {
-                                cubes[obj.collCube].x = xMoveL;    
-                            } else {
-                                //continue;
-                            }
-                            obj.collLeft = false;
-                        }
-                        if (obj.collRight) {
-                            console.log("obj.collRight = " + obj.collRight);
-                            var xMoveR = x + (cubes[obj.collCube].width + (obj.width - obj.shiftX) );
-                            if (xMoveR <= map.width) {
-                                cubes[obj.collCube].x = xMoveR;
-                            } else {
-                                //cubes[obj.collCube].y += cubes[obj.collCube].height;
-                            }
-                            obj.collRight = false;
-                        }
-                        obj.collDown = false;
-                        obj.collTop = false;
-                    }
-                    if (obj.collDown || obj.collTop) {
-                        if (obj.collDown) {
-                            console.log("obj.collDown = " + obj.collDown);
-                            var yMoveT = y - (cubes[obj.collCube].height + obj.shiftY); 
-                            if (yMoveT > 0) {
-                                cubes[obj.collCube].y = yMoveT;
-                            } else {
-
-                            }   
-                            obj.collDown = false;
-                        }
-                        if (obj.collTop) {
-                            console.log("obj.collTop = " + obj.collTop);
-                            var yMoveD = y + (cubes[obj.collCube].height + (obj.height - obj.shiftY));
-                            if (yMoveD < map.height) {
-                                cubes[obj.collCube].y = yMoveD;
-                            } else {
-
-                            }
-                            obj.collTop = false;
+                    if (obj.collLeft) {
+                        console.log("obj.collLeft = " + obj.collLeft);
+                        if (cubes[obj.collCube].x > (cubes[obj.collCube].width / 2) ) {
+                            cubes[obj.collCube].x -= (cubes[obj.collCube].width / 2);    
+                        } else if (cubes[obj.collCube].x < cubes[obj.collCube].width ) {
+                            cubes[obj.collCube].x = 0;
                         }
                         obj.collLeft = false;
+                    }
+                    if (obj.collRight) {
+                        console.log("obj.collRight = " + obj.collRight);
+                        if ( (cubes[obj.collCube].x + (cubes[obj.collCube].width / 2) ) < (map.width - cubes[obj.collCube].width ) ) {
+                            cubes[obj.collCube].x += (cubes[obj.collCube].width / 2 );
+                        } else {
+                            cubes[obj.collCube].x = map.width - cubes[obj.collCube].width;
+                        }
                         obj.collRight = false;
-                    }                
+                    }
+                    if (obj.collDown) {
+                        console.log("obj.collDown = " + obj.collDown);
+                        if ( (cubes[obj.collCube].y + (cubes[obj.collCube].height / 2) ) < (map.height - cubes[obj.collCube].height ) ) {
+                            cubes[obj.collCube].y += (cubes[obj.collCube].height / 2 );
+                        } else {
+                            cubes[obj.collCube].y = map.height - cubes[obj.collCube].height;
+                        }   
+                        obj.collDown = false;
+                    }
+                    if (obj.collTop) {
+                        console.log("obj.collTop = " + obj.collTop);
+                        if (cubes[obj.collCube].y > (cubes[obj.collCube].height / 2) ) {
+                            cubes[obj.collCube].y -= (cubes[obj.collCube].height / 2);
+                        } else {
+                            cubes[obj.collCube].y = 0;
+                        }
+                        obj.collTop = false;
+                    }
                 }
             }
         }
     }
-
     function collision(obj) {
-        var XColl = false;
-        var YColl = false;
+        //var XColl = false;
+        //var YColl = false;
         for (var i = 0; i < cubes.length; i++) {
             if (i != obj.index) {
-                if ( (obj.x + obj.width >= cubes[i].x) && (obj.x <= cubes[i].x + cubes[i].width) ) { 
+                if ( (obj.x + obj.width >= cubes[i].x) && (obj.x <= cubes[i].x + cubes[i].width) ) {
+                    if ( ((obj.y + obj.height) >= cubes[i].y && ((obj.y + obj.height) <= (cubes[i].y + cubes[i].height / 2) ) ) )  {
+                        console.log("obj.collDown")
+                        obj.collDown = true;
+                        obj.collLeft = obj.collRight = obj.collTop = false;
+                    }
+                    if ( (obj.y <= (cubes[i].y + cubes[i].height)) && ( (obj.y ) >= (cubes[i].y - ( cubes[i].height / 2) ) ) ) {
+                        console.log("obj.collTop");
+                        obj.collTop = true;
+                        obj.collRight = obj.collDown = obj.collLeft = false;
+                    }
+                }
+                if ( (obj.y + obj.height >= cubes[i].y) && (obj.y <= cubes[i].y + cubes[i].height) ) {
+                    if ( ((obj.x + obj.width) >= cubes[i].x) && ((obj.x + obj.width) <= (cubes[i].x + (cubes[i].width / 2 ) ) ) ) {
+                        console.log("obj.collRight");
+                        obj.collRight = true;
+                        obj.collLeft = obj.collDown = obj.collTop = false;
+                    }
+                    if ( (obj.x <= (cubes[i].x + cubes[i].width)) && (obj.x >= (cubes[i].x - (cubes[i].width / 2) ))  ) {
+                        console.log("obj.collLeft");
+                        obj.collLeft = true;
+                        obj.collTop = obj.collDown = obj.collRigth = false;
+                    }
+                }
+                if (obj.collTop || obj.collDown || obj.collLeft || obj.collRight) {
+                    obj.collCube = i;
+                    return true;
+                } 
+            } else {
+                continue;
+            }
+        }
+    }      
+                /*if ( (obj.x + obj.width >= cubes[i].x) && (obj.x <= cubes[i].x + cubes[i].width) ) { 
                     if ( (obj.x > cubes[i].x) && (obj.x < cubes[i].x + cubes[i].width) ) {
                         obj.collLeft = true;
                     }
@@ -132,12 +151,8 @@ $(function() {
                 } else {
                     XColl = false;
                     YColl = false;
-                }
-            } else {
-                continue;
-            }
-        }
-    }
+                }*/
+
       
     function Entity(color, x, y, width, height) {
         this.color = color;
