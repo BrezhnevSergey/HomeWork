@@ -5,6 +5,10 @@ $(function() {
     var context = canvas.get(0).getContext("2d")
     var isDrag = false;
 
+    var oldX = 0;
+    var oldY = 0;
+    var direction;
+
     var cubes = [];
     var currentCube = {};
 
@@ -15,6 +19,17 @@ $(function() {
   
     canvas.on("mousemove", function(e) {
         if (isDrag) {
+            if (e.offsetX < oldX) {
+                direction = "left";
+            } else if (e.offsetX > oldX) {
+                direction = "right";
+            } else if (e.offsetY < oldY) {
+                direction = "up";
+            } else if (e.offsetY > oldY) {
+                direction = "down";
+            }
+            oldX = e.offsetX;
+            oldY = e.offsetY;
             changeCoords(currentCube, e.offsetX, e.offsetY);
             draw();
         }
@@ -46,8 +61,7 @@ $(function() {
                 obj.y = y - obj.shiftY;
 
                 if (collision(obj)) {
-                    if (obj.collLeft) {
-                        console.log("obj.collLeft = " + obj.collLeft);
+                    if (obj.collLeft && (direction == "left") ) {
                         if (cubes[obj.collCube].x > (cubes[obj.collCube].width / 2) ) {
                             cubes[obj.collCube].x -= (cubes[obj.collCube].width / 2);    
                         } else if (cubes[obj.collCube].x < cubes[obj.collCube].width ) {
@@ -55,8 +69,7 @@ $(function() {
                         }
                         obj.collLeft = false;
                     }
-                    if (obj.collRight) {
-                        console.log("obj.collRight = " + obj.collRight);
+                    if (obj.collRight && (direction == "right") ) {
                         if ( (cubes[obj.collCube].x + (cubes[obj.collCube].width / 2) ) < (map.width - cubes[obj.collCube].width ) ) {
                             cubes[obj.collCube].x += (cubes[obj.collCube].width / 2 );
                         } else {
@@ -64,8 +77,7 @@ $(function() {
                         }
                         obj.collRight = false;
                     }
-                    if (obj.collDown) {
-                        console.log("obj.collDown = " + obj.collDown);
+                    if (obj.collDown && (direction == "down") ) {
                         if ( (cubes[obj.collCube].y + (cubes[obj.collCube].height / 2) ) < (map.height - cubes[obj.collCube].height ) ) {
                             cubes[obj.collCube].y += (cubes[obj.collCube].height / 2 );
                         } else {
@@ -73,8 +85,7 @@ $(function() {
                         }   
                         obj.collDown = false;
                     }
-                    if (obj.collTop) {
-                        console.log("obj.collTop = " + obj.collTop);
+                    if (obj.collTop && (direction == "up") ) {
                         if (cubes[obj.collCube].y > (cubes[obj.collCube].height / 2) ) {
                             cubes[obj.collCube].y -= (cubes[obj.collCube].height / 2);
                         } else {
@@ -87,32 +98,22 @@ $(function() {
         }
     }
     function collision(obj) {
-        //var XColl = false;
-        //var YColl = false;
         for (var i = 0; i < cubes.length; i++) {
             if (i != obj.index) {
                 if ( (obj.x + obj.width >= cubes[i].x) && (obj.x <= cubes[i].x + cubes[i].width) ) {
                     if ( ((obj.y + obj.height) >= cubes[i].y && ((obj.y + obj.height) <= (cubes[i].y + cubes[i].height / 2) ) ) )  {
-                        console.log("obj.collDown")
                         obj.collDown = true;
-                        obj.collLeft = obj.collRight = obj.collTop = false;
                     }
                     if ( (obj.y <= (cubes[i].y + cubes[i].height)) && ( (obj.y ) >= (cubes[i].y - ( cubes[i].height / 2) ) ) ) {
-                        console.log("obj.collTop");
                         obj.collTop = true;
-                        obj.collRight = obj.collDown = obj.collLeft = false;
                     }
                 }
                 if ( (obj.y + obj.height >= cubes[i].y) && (obj.y <= cubes[i].y + cubes[i].height) ) {
                     if ( ((obj.x + obj.width) >= cubes[i].x) && ((obj.x + obj.width) <= (cubes[i].x + (cubes[i].width / 2 ) ) ) ) {
-                        console.log("obj.collRight");
                         obj.collRight = true;
-                        obj.collLeft = obj.collDown = obj.collTop = false;
                     }
                     if ( (obj.x <= (cubes[i].x + cubes[i].width)) && (obj.x >= (cubes[i].x - (cubes[i].width / 2) ))  ) {
-                        console.log("obj.collLeft");
                         obj.collLeft = true;
-                        obj.collTop = obj.collDown = obj.collRigth = false;
                     }
                 }
                 if (obj.collTop || obj.collDown || obj.collLeft || obj.collRight) {
@@ -124,36 +125,7 @@ $(function() {
             }
         }
     }      
-                /*if ( (obj.x + obj.width >= cubes[i].x) && (obj.x <= cubes[i].x + cubes[i].width) ) { 
-                    if ( (obj.x > cubes[i].x) && (obj.x < cubes[i].x + cubes[i].width) ) {
-                        obj.collLeft = true;
-                    }
-                    if ( (obj.x < cubes[i].x) && (obj.x + obj.width > cubes[i].x) ) {
-                        obj.collRight = true;
-                    }
-                    XColl = true;
-                }
-                if ( (obj.y + obj.height >= cubes[i].y) && (obj.y <= cubes[i].y + cubes[i].height) ) {
-                    if ( (obj.y > cubes[i].y) && (obj.y < cubes[i].y + cubes[i].height) ) {
-                        obj.collDown = true;
-                    }
-                    if ( (obj.y < cubes[i].y) && (obj.y + obj.height > cubes[i].y) ) {
-                        obj.collTop = true;
-                    }
-                    YColl = true;
-                }
-                if( XColl && YColl ) {
-                    obj.collCube = i;
-                    return true;
-                    //console.log("obj")
-                    //console.log("Crash obj[" + obj.index + "],obj.x=" + obj.x +",obj.y=" + obj.y + 
-                        //" with obj[" + i + "],obj[" + i + "].x=" + cubes[i].x + ",obj[" + i + "].y=" + cubes[i].y);
-                } else {
-                    XColl = false;
-                    YColl = false;
-                }*/
-
-      
+     
     function Entity(color, x, y, width, height) {
         this.color = color;
         this.x = x;
@@ -176,11 +148,9 @@ $(function() {
     var map = new Entity("white", 0, 0, canvas.width(), canvas.height());
     var cube0 = new Entity("red", 15, 15, 30, 30);
     var cube1 = new Entity("blue", 50, 50, 30, 30);
-    var cube2 = new Entity("green", 50, 110, 30, 30);
-
+    
     cubes.push(cube0);
     cubes.push(cube1);
-    cubes.push(cube2);
-    
+        
     draw();
 });
