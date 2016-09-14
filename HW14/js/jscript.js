@@ -17,5 +17,12 @@ $("header div:not(.header)").replaceWith(function () {
 });
 
 
+//MAIN
+//var aa = $("span:contains('Lorem')").siblings("div:last").find("div.level3").not("div.level button");
+var divs = $("span:contains('Lorem')").siblings("div:last").find("div.level3:not(:has(>button))").each(function(index) {
+    $(this).append("<button>button</button>").addClass("button");
+});
+
+console.log(divs);
 
 });
