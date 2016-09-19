@@ -24,15 +24,13 @@ $(document).ready(function() {
                 totalPicWidth(arrayPicSize);
                 if(!($("#list .thumbnail").hasClass("active"))) {
                     $("#list .thumbnail:first").addClass("active");   
-                    $("#fullSize").css({
-                        "visibility" : "visible",
-                        "opacity" : "1"
-                    });
+                    $("#fullSize").css("visibility", "visible").animate({opacity: 1.0});
                     $("#delete").bind("click", removePic);
-                    $(".gallery .upload_box .delete").css({
+ /*                   $(".gallery .upload_box .delete").css({
                         "background-color" : "grey",
                         "cursor" : "pointer",
-                        "color" : "black"});
+                        "color" : "black"});*/
+                       // $(".gallery .upload_box .delete").animate()
                     showFull(); 
                 }
                 showManage();
@@ -52,6 +50,7 @@ $(document).ready(function() {
         var imgTitle = $("#list .active").attr("title");
         var newElem = '<img src="' + imgSrc + '" title = "' + imgTitle +'" />';
         $("#fullSize img").replaceWith(newElem);
+        $("#fullSize img").css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 500);
     }
 
     function isHasPrev() {
