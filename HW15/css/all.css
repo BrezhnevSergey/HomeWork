@@ -71,13 +71,12 @@ body {
   margin-right: 5px;
 }
 .gallery .upload_box .delete {
-  background-color: #f2f2f2;
-  color: #e6e6e6;
-}
-.gallery .upload_box .upload {
-  background-color: gray;
+  /*background-color: #f2f2f2;
+  color: #e6e6e6;*/
+  opacity: 0.3;
 }
 .gallery .upload_box .upload, .gallery .upload_box .delete {
+    background-color: gray;
     overflow: hidden;
     position: relative;
     border-radius: 5px;
@@ -142,25 +141,24 @@ body {
   height: 39px;
   width: 39px;
   border-radius: 20px;
-  -webkit-transition: opacity 1.2s ease-in-out;
-  -moz-transition: opacity 1.2s ease-in-out;
-  -ms-transition: opacity 1.2s ease-in-out;
-  -o-transition: opacity 1.2s ease-in-out;
-  transition: opacity 1.2s ease-in-out;
+  cursor: default;
+  opacity: 0;
+  /*visibility: hidden;*/
+  -webkit-transition: opacity 1.0s ease-in-out;
+  -moz-transition: opacity 1.0s ease-in-out;
+  -ms-transition: opacity 1.0s ease-in-out;
+  -o-transition: opacity 1.0s ease-in-out;
+  transition: opacity 1.0s ease-in-out;
 }
 .next {
   background: url(../img/slider-right-bg.png) no-repeat 55% 50%;
   right: -4px;
-  visibility: hidden;
-  opacity: 0;
 }
 .prev {
   background: url(../img/slider-left-bg.png) no-repeat 55% 50%;
   left: -6px;
-  visibility: hidden;
-  opacity: 0;
 }
-.gallery .show output {
+.gallery .show #fullSize{
   display: block;
   border: 1px solid green;
   border-radius: 5px;
@@ -169,13 +167,19 @@ body {
   visibility: hidden;
   opacity: 0;
   padding: 5px;
-  -webkit-transition: opacity 1.2s ease-in-out;
-  -moz-transition: opacity 1.2s ease-in-out;
-  -ms-transition: opacity 1.2s ease-in-out;
-  -o-transition: opacity 1.2s ease-in-out;
-  transition: opacity 1.2s ease-in-out;
+  -webkit-transition: opacity 1.0s ease-in-out;
+  -moz-transition: opacity 1.0s ease-in-out;
+  -ms-transition: opacity 1.0s ease-in-out;
+  -o-transition: opacity 1.0s ease-in-out;
+  transition: opacity 1.0s ease-in-out;
 }
 #fullSize img {
   width: 100%;
   height: 100%;
+  display: block;
+  -webkit-transition: opacity 1.0s ease-in-out;
+  -moz-transition: opacity 1.0s ease-in-out;
+  -ms-transition: opacity 1.0s ease-in-out;
+  -o-transition: opacity 1.0s ease-in-out;
+  transition: opacity 1.0s ease-in-out;
 }

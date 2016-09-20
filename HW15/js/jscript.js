@@ -3,9 +3,9 @@ $(document).ready(function() {
     var arrayPicSize = [];
     var allPicWidth = 0;
     var preiewWidth = $(".gallery .preview").innerWidth();
-    console.log("preiewWidth="+preiewWidth);
     var elemMargin = 0;
     var translateX = 0;
+    var picCount = 0;
 
     $('#fileupload').on('change', function(e) {
         var files = e.target.files;
@@ -22,18 +22,19 @@ $(document).ready(function() {
                 elemMargin = parseInt($("#list .thumbnail:last").css("margin-right"));
                 arrayPicSize.push(size + elemMargin);
                 totalPicWidth(arrayPicSize);
-                if(!($("#list .thumbnail").hasClass("active"))) {
-                    $("#list .thumbnail:first").addClass("active");   
-                    $("#fullSize").css("visibility", "visible").animate({opacity: 1.0});
+                picCount = arrayPicSize.length;
+                if(!hasActive()) {
+                    setActive();  
                     $("#delete").bind("click", removePic);
+                        activateDelButton();
  /*                   $(".gallery .upload_box .delete").css({
                         "background-color" : "grey",
                         "cursor" : "pointer",
                         "color" : "black"});*/
                        // $(".gallery .upload_box .delete").animate()
-                    showFull(); 
                 }
-                showManage();
+            showFull();
+            showManage(); 
             }
             fileRead.readAsDataURL(file);
         }
@@ -45,51 +46,82 @@ $(document).ready(function() {
         });
     }
 
+    function activateDelButton() {
+        $("#delete").css("cursor", "pointer");
+        $("#delete").parent().animate({opacity: "1"}, 1100);
+
+    }
+
+    function deActivateDelButton() {
+        $("#delete").css("cursor", "default")
+        $("#delete").parent().animate({opacity: "0.3"});
+    }
+
+    function hasActive() {
+        if($("#list .thumbnail").hasClass("active")) {
+            return true;
+        }
+        return false;
+    }
+
+    function setActive() {
+        $("#list .thumbnail:first").addClass("active");
+    }
+
     function showFull() {
+        $("#fullSize").css("visibility", "visible").animate({opacity: 1}, 200);
         var imgSrc = $("#list .active").attr("src");
         var imgTitle = $("#list .active").attr("title");
         var newElem = '<img src="' + imgSrc + '" title = "' + imgTitle +'" />';
         $("#fullSize img").replaceWith(newElem);
-        $("#fullSize img").css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 500);
+        $("#fullSize img").css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 300);
     }
 
     function isHasPrev() {
         if(($("#list .active").prev()).length) {
           return true;  
-        }
+        } 
         return false;
     }
 
     function isHasNext() {
         if(($("#list .active").next()).length) {
           return true;  
-        }
-        return false;
+        } 
+        return false;        
     }
 
     function showManage() {
-        if(isHasNext()) {
-            $(".gallery .next").css({
-                "visibility" : "visible",
-                "opacity" : "1" });
-        } else {
-            $(".gallery .next").css({
-                "visibility" : "hidden",
-                "opacity" : "0" });
-        }
-        if (isHasPrev()) {
-            $(".gallery .prev").css({
-                "visibility" : "visible",
-                "opacity" : "1" });
-        } else {
-            $(".gallery .prev").css({
-                "visibility" : "hidden",
-                "opacity" : "0" });
+        if(picCount > 1) {
+            if(isHasNext()) {
+                $(".gallery .next").css("cursor", "pointer").animate({opacity: "1"}, 300);
+
+            } else {
+                $(".gallery .next").animate({
+                    opacity: 0
+                    }, 300,
+                    function() {
+                       $(this).css("cursor", "default");
+                    });
+            }
+            if (isHasPrev()) {
+                $(".gallery .prev").css("cursor", "pointer").animate({opacity: "1"}, 300);
+            } else {
+                $(".gallery .prev").animate({
+                        opacity: 0
+                    }, 300, 
+                    function() {
+                        $(this).css("cursor", "default");
+                    });
+            }
         }
     }
 
     function removePic(){
         $("#list .active").remove();
+        if(!hasActive()){
+            deActivateDelButton();
+        }
     }
 
 
