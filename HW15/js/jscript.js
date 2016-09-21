@@ -13,47 +13,49 @@ $(document).ready(function() {
             if(!file.type.match('image/*')) {
                 continue;
             }
-            var fileName = file.name;
             var fileRead = new FileReader();
-            fileRead.onload = function(ev) {
-                var newElem = '<img class="thumbnail" src="' + ev.target.result + '" title = "' + fileName +'" />';
-                $(".preview #list").append(newElem);
-                var size = $("#list .thumbnail:last").outerWidth();
-                elemMargin = parseInt($("#list .thumbnail:last").css("margin-right"));
-                arrayPicSize.push(size + elemMargin);
-                totalPicWidth(arrayPicSize);
-                picCount = arrayPicSize.length;
-                if(!hasActive()) {
-                    setActive();  
-                    $("#delete").bind("click", removePic);
+            fileRead.onload = (function(theFile) {
+                return function(ev) {
+                    var newElem = '<img class="thumbnail" src="' + ev.target.result + '" title = "' + escape(theFile.name) +'" />';
+                    $(".preview #list").append(newElem);
+                    var size = $("#list .thumbnail:last").outerWidth();
+                    elemMargin = parseInt($("#list .thumbnail:last").css("margin-right"));
+                    arrayPicSize.push(size + elemMargin);
+                    totalPicWidth(arrayPicSize);
+                    picCount = arrayPicSize.length;
+                    if(!hasActive()) {
+                        var acvElem = $("#list .thumbnail:first");
+                        setActive(acvElem);  
                         activateDelButton();
- /*                   $(".gallery .upload_box .delete").css({
-                        "background-color" : "grey",
-                        "cursor" : "pointer",
-                        "color" : "black"});*/
-                       // $(".gallery .upload_box .delete").animate()
-                }
-            showFull();
-            showManage(); 
-            }
+                    }
+                    showFull();
+                    showManage();
+                }; 
+            })(file);
             fileRead.readAsDataURL(file);
         }
     });
 
+    $(".gallery .next").on("click", moveNext);
+    $(".gallery .prev").on("click", movePrev);
+
     function totalPicWidth(arr) {
-        allPicWidth = arr.reduce(function(a,b) {
-            return a + b;
-        });
+        if(arr.length) {
+            allPicWidth = arr.reduce(function(a,b) {
+                return a + b;
+            });
+        } else {
+            allPicWidth = 0;
+        }
     }
 
     function activateDelButton() {
-        $("#delete").css("cursor", "pointer");
+        $("#delete").css("cursor", "pointer").on("click", removeImg);
         $("#delete").parent().animate({opacity: "1"}, 1100);
-
     }
 
     function deActivateDelButton() {
-        $("#delete").css("cursor", "default")
+        $("#delete").css("cursor", "default").off("click", removeImg);
         $("#delete").parent().animate({opacity: "0.3"});
     }
 
@@ -64,8 +66,12 @@ $(document).ready(function() {
         return false;
     }
 
-    function setActive() {
-        $("#list .thumbnail:first").addClass("active");
+    function setActive(elem) {
+        elem.addClass("active");
+    }
+
+    function removeActive(elem) {
+        elem.removeClass("active");
     }
 
     function showFull() {
@@ -77,22 +83,32 @@ $(document).ready(function() {
         $("#fullSize img").css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 300);
     }
 
+    function hideFull() {
+         $("#fullSize img").animate({
+                    opacity: 0
+                    }, 200,
+                    function() {
+                       $(this).parent().css("visibility", "hidden");
+                       $(this).attr({"src": "", "title": ""});
+                    });
+    }
+
     function isHasPrev() {
         if(($("#list .active").prev()).length) {
-          return true;  
+          return $("#list .active").prev();  
         } 
         return false;
     }
 
     function isHasNext() {
         if(($("#list .active").next()).length) {
-          return true;  
+          return $("#list .active").next();  
         } 
         return false;        
     }
 
     function showManage() {
-        if(picCount > 1) {
+        if(picCount >= 1) {
             if(isHasNext()) {
                 $(".gallery .next").css("cursor", "pointer").animate({opacity: "1"}, 300);
 
@@ -117,57 +133,88 @@ $(document).ready(function() {
         }
     }
 
-    function removePic(){
-        $("#list .active").remove();
+   function removeImg(){
+        var nextElem = isHasNext();
+        var prevElem = isHasPrev();
+        var currentElemWidth = $("#list .active").outerWidth();
+        if(nextElem || prevElem) {
+            if(nextElem) {
+                removeItem();
+                setActive(nextElem);
+                if( (translateX < 0) && (allPicWidth + translateX < preiewWidth) ) {
+                    translateX = translateX + currentElemWidth;
+                    $("#list").css("transform", "translateX(" + translateX + "px)");
+                }
+            } else if(!nextElem && prevElem) {
+                removeItem();
+                setActive(prevElem);
+            }
+            showFull();
+            showManage();
+        } else {
+            removeItem();
+            hideFull();
+        } 
+        
         if(!hasActive()){
             deActivateDelButton();
         }
+        function removeItem(){
+            currentElemWidth = currentElemWidth + elemMargin;
+            $("#list .active").remove();
+            var index = arrayPicSize.indexOf(currentElemWidth);
+            arrayPicSize.splice(index, 1);
+            totalPicWidth(arrayPicSize);
+            picCount--;
+        }
     }
 
+    
 
-    $(".gallery .next").on("click", function(){
-        var nextElem = $("#list .active").next();
-        if(isHasNext()){
+    function moveNext() {
+        var nextElem = isHasNext();
+        if(nextElem){
             var currentElemWidth = $("#list .active").outerWidth();
             translateX -= currentElemWidth + elemMargin;
             if(translateX <= preiewWidth - allPicWidth) {
                 translateX = preiewWidth - allPicWidth - 3;
                 $("#list").css("transform", "translateX(" + translateX + "px)");
-                $("#list .thumbnail").removeClass("active");
-                nextElem.addClass("active");
+                removeActive($("#list .thumbnail"));
+                setActive(nextElem);
                 showFull();
                 showManage();
             } else {
                 $("#list").css("transform", "translateX(" + translateX + "px)");
-                $("#list .thumbnail").removeClass("active");
-                nextElem.addClass("active");
+                removeActive($("#list .thumbnail"));
+                setActive(nextElem);
                 showFull();
                 showManage();
             }
-        } 
-    });
+        }
+    }
 
-    $(".gallery .prev").on("click", function(){
-        var prevElem = $("#list .active").prev();
-        if(isHasPrev()){
+
+    function movePrev(){
+        var prevElem = isHasPrev();
+        if(prevElem){
             var prevElemWidth = prevElem.outerWidth();
             translateX += prevElemWidth + elemMargin;
             if(translateX < 0) {
                 $("#list").css("transform", "translateX(" + translateX + "px)");
-                $("#list .thumbnail").removeClass("active");
-                prevElem.addClass("active");
+                removeActive($("#list .thumbnail"));
+                setActive(prevElem);
                 showFull();
                 showManage();
             } else {
                 translateX = 0;
                 $("#list").css("transform", "translateX(" + translateX + "px)");
-                $("#list .thumbnail").removeClass("active");
-                prevElem.addClass("active");
+                removeActive($("#list .thumbnail"));
+                setActive(prevElem);
                 showFull();
                 showManage();
             }
         }
-    });
+    }
     
     
 });

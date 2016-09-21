@@ -51,8 +51,10 @@ textarea:focus, input:focus, a:focus {
 mark {background: none}
 /*-----main styles-----*/
 body {
+
 }
 .gallery {
+  margin: 0 auto;
   width: 474px;
   border: 2px solid gray;
   border-radius: 10px;
@@ -71,8 +73,6 @@ body {
   margin-right: 5px;
 }
 .gallery .upload_box .delete {
-  /*background-color: #f2f2f2;
-  color: #e6e6e6;*/
   opacity: 0.3;
 }
 .gallery .upload_box .upload, .gallery .upload_box .delete {
@@ -106,6 +106,7 @@ body {
   font-weight: bold;
   padding: 5px;
   margin-bottom: 5px;
+  color: gray;
 }
 .gallery .preview {
   padding: 3px;
@@ -159,7 +160,6 @@ body {
   left: -6px;
 }
 .gallery .show #fullSize{
-  display: block;
   border: 1px solid green;
   border-radius: 5px;
   box-sizing: border-box;
@@ -182,4 +182,7 @@ body {
   -ms-transition: opacity 1.0s ease-in-out;
   -o-transition: opacity 1.0s ease-in-out;
   transition: opacity 1.0s ease-in-out;
+}
+#fullSize img[src=""] {
+  width: 0;
 }
