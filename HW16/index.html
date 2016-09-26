@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>HomeWork16</title>
+		<meta name="viewport" content="width=device-width, maximum-scale=1"/>
+  		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  		<meta name="format-detection" content="telephone=no" />
+		<link media="all" rel="stylesheet" href="css/all.css" type="text/css" />
+		<script data-require="angular.js@1.4.9" data-semver="1.4.9" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    	<script type="text/javascript" src="js/jscript.js"></script>
+	</head>
+	<body>
+    <input type="text" ng-model="search.val">
+
+    <div ng-controller="TestCtrl as Test">
+      <span ng-bind="Test.test"></span>
+      <!--span ng-bind="users"></span-->
+      <div ng-repeat="user in users">
+        <!-- limitTo: limit : begin -->
+        <div>
+          <input type="checkbox" ng-model="user.completed"> is Completed ?
+          <span ng-bind="user.name" to-red></span>
+          <span ng-bind="user.age" to-red></span>
+          <span ng-bind="user.completed" to-red></span>
+        </div>
+        
+      </div>
+    </div>
+   	
+	</body>
+</html>
