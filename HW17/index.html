@@ -4,13 +4,20 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>HomeWork16</title>
 		<meta name="viewport" content="width=device-width, maximum-scale=1"/>
-  	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  	<meta name="format-detection" content="telephone=no" />
+  		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  		<meta name="format-detection" content="telephone=no" />
+		<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 		<link media="all" rel="stylesheet" href="css/all.css" type="text/css" />
-    <script type="text/javascript" src="js/jscript.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/controllers.js"></script>
 	</head>
-	<body>
-    
-   	</div>
+	<body ng-app="submitExample">
+		<div class="wrapper">
+			<h2><span>My</span> ToDo <span>List</span></h2>
+			<form ng-submit="submit()" ng-controller="ExampleController">
+				<input type="text" ng-model="text" placeholder="What needs to be done?">
+				<div class="task" ng-repeat="text in list">{{text}}</div>
+			</form>
+		</div>
 	</body>
 </html>
