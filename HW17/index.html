@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>HomeWork16</title>
+		<meta name="viewport" content="width=device-width, maximum-scale=1"/>
+  		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  		<meta name="format-detection" content="telephone=no" />
+		<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
+		<link media="all" rel="stylesheet" href="css/all.css" type="text/css" />
+		<script src="js/angular.min.js"></script>
+		<script src="js/jscript.js"></script>
+		<script src="js/controllers.js"></script>
+	</head>
+	<body ng-app="toDoListApp">
+		<div class="wrapper">
+			<h2><span>My</span> ToDo <span>List</span></h2>
+			<form ng-submit="submit(text)" ng-controller="toDoListCtrl">
+				<fieldset>
+					<input type="text" class="text" ng-model="text" placeholder="What needs to be done?">
+				</fieldset>
+				<div class="manage">
+					<ul>
+						<li>{{results.length}} item</li>
+						<li><a href="" ng-class="filter == '$' ? 'active' : ''" ng-click="changeFilterTo('$')">All</a></li>
+						<li><a href="" ng-class="filter == 'false' ? 'active' : ''" ng-click="changeFilterTo('false')">Active</a></li>
+						<li><a href="" ng-class="filter == 'true' ? 'active' : ''" ng-click="changeFilterTo('true')">Completed</a></li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li class="task done-{{task.done}}" ng-repeat="task in list.tasks | filter:getFilter() as results">
+							<div class="done">
+								<input type="checkbox" ng-model="task.done">
+							</div>
+							<p class="">{{task.text}}</p>
+							<div class="remove">
+								<a href="" ng-click="remove(task)">x</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

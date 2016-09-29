@@ -1,0 +1,169 @@
+@font-face {
+}
+/* General reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+textarea:focus, input:focus, a:focus {
+  outline: 0;
+}
+
+mark {background: none}
+/*-----main styles-----*/
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  background: rgb(255,255,255); /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(237,253,255,1) 56%, rgba(197,222,232,1) 99%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(237,253,255,1) 56%,rgba(197,222,232,1) 99%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(237,253,255,1) 56%,rgba(197,222,232,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#c5dee8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.wrapper {
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  min-width: 320px;
+  max-width: 800px;
+  font: 24px/26px 'Marck Script', cursive;
+}
+.wrapper h2 {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 2em;
+  line-height: 2em;
+  text-align: center;
+  color: #feb0f6;
+  text-shadow: 0 5px 8px rgba(150, 150, 150, 1);
+}
+.wrapper span{
+  font-size: 0.9em;
+}
+.wrapper .text {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  font: 24px/30px 'Marck Script', cursive;
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  -moz-box-shadow:    inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+  -webkit-box-shadow: inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+  box-shadow:         inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+  margin-bottom: 20px;
+}
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder { /* Firefox 18- */
+  text-align: center;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;
+}
+:-ms-input-placeholder {
+  text-align: center;
+}
+.wrapper input.text:focus {
+  border-color: #4c64fe;
+  -moz-box-shadow:    inset 0 0 6px #4c64fe, 0 3px 12px #4c64fe;
+  -webkit-box-shadow: inset 0 0 6px #4c64fe, 0 3px 12px #4c64fe;
+  box-shadow:         inset 0 0 6px #4c64fe, 0 3px 12px #4c64fe;
+}
+.manage, .task {
+  padding: 6px 8px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  -moz-box-shadow:    inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+  -webkit-box-shadow: inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+  box-shadow:         inset 0 0 4px #000000, 0 5px 8px rgba(150, 150, 150, 1);
+}
+.manage ul {
+  overflow: hidden;
+  text-align: center;
+}
+.manage li:first-child {
+  margin-right: 20px;
+}
+.manage li {
+  display: inline-block;
+  padding: 4px 0px;
+}
+.manage li a {
+  border: 1px solid transparent;
+  padding: 0 5px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.manage li a.active {
+  border-color: red;
+}
+.task p {
+  display: table-cell;
+  word-wrap: break-word;
+  text-align: justify;
+  width: 100%;
+  margin: 0 26px;
+}
+.task .done input {
+  width: 26px;
+}
+.task .done, .task .remove {
+  display: table-cell;
+  vertical-align: middle;
+}
+.task .remove a {
+  width: 26px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+.done-true {
+  opacity: 0.4;
+}
+.done-true p {
+  text-decoration: line-through;
+}
+
