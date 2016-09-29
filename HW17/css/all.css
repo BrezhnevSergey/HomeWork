@@ -62,7 +62,10 @@ body {
 }
 .wrapper {
   margin: 0 auto;
-  width: 50%;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  min-width: 320px;
+  max-width: 800px;
   font: 24px/26px 'Marck Script', cursive;
 }
 .wrapper h2 {
