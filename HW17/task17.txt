@@ -1,1 +1,0 @@
-﻿#домашка по AngularJS: сделать тудушку (http://todomvc.com/examples/angularjs/#/), но про это я уже писал чуть выше
