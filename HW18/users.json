@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "0",
+      "email": "admin@root.com",
+      "name": "root",
+      "password": "SuPer15-!Root",
+      "isAdmin": "true",
+      "isAuthenticated": "false"
+    }
+  ]
+}
