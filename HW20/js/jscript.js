@@ -39,7 +39,7 @@ var Tabs = React.createClass({
 
 
     render: function () {
-        var liClass = this.props.show ? 'active' : '';
+        var liClass = this.props.show ? 'active' : ''; 
         return (
             <div className="tabs_wrapper">
                 <ul>
