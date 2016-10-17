@@ -1,0 +1,96 @@
+@font-face {
+}
+/* General reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+textarea:focus, input:focus, a:focus {
+    outline: 0;
+}
+
+mark {background: none}
+/*-----main styles-----*/
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(46,55,155,0) 0%, rgba(48,57,156,0) 1%, rgba(147,192,226,0) 62%, rgba(147,192,226,0) 63%, rgba(147,192,226,0.59) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(46,55,155,0) 0%,rgba(48,57,156,0) 1%,rgba(147,192,226,0) 62%,rgba(147,192,226,0) 63%,rgba(147,192,226,0.59) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  rgba(46,55,155,0) 0%,rgba(48,57,156,0) 1%,rgba(147,192,226,0) 62%,rgba(147,192,226,0) 63%,rgba(147,192,226,0.59) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002e379b', endColorstr='#9693c0e2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.tabs_wrapper {
+    margin: 0 auto;
+    width: 600px;
+}
+.tabs_wrapper ul {
+    overflow: hidden;
+}
+.tabs_wrapper ul li {
+    float: left;
+    padding: 10px;
+    font-size: 24px;
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+.tab {
+    box-sizing: border-box;
+    padding: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+.tab h1 {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.tab img {
+    float: left;
+    margin: 0 20px 20px 0;
+}
+.tab span {
+    text-align: justify;
+}
